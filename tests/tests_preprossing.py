@@ -7,11 +7,11 @@ import unittest
 class TestsPreprocessing(unittest.TestCase):
 
     def test_preprocessing_fullpath(self):
-        words = preprocessing.parse('/home/thales/Dev/Tulipe/tests/test.pdf')
+        words = preprocessing.parse('/home/thales/Dev/Tulipe/tests/sample.pdf')
         self.assertIsNotNone(words)
 
     def test_preprocessing_relpath(self):
-        words = preprocessing.parse('~/Dev/Tulipe/tests/test.pdf')
+        words = preprocessing.parse('~/Dev/Tulipe/tests/sample.pdf')
         self.assertIsNotNone(words)
 
     def test_preprocessing_numeric_type(self):
@@ -23,5 +23,5 @@ class TestsPreprocessing(unittest.TestCase):
             preprocessing.parse('~/somefile.pryt')
 
     def test_preprocessing_more_than_one_word(self):
-        words = preprocessing.parse('/home/thales/Dev/Tulipe/tests/test.pdf')
+        words = preprocessing.parse('/home/thales/Dev/Tulipe/tests/sample.pdf')
         self.assertGreater(len(words), 1)

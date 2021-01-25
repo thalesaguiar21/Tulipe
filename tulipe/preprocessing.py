@@ -1,15 +1,14 @@
 import os
 
-from PyPDF2 import PdfFileReader
+from pdfminer.high_level import extract_text
 
 
 def parse(docpath):
     expandedpath = os.path.expanduser(docpath)
     __, doctype = os.path.splitext(expandedpath)
     parser = _get_parser(doctype)
-    with open(expandedpath, 'rb') as doc:
-        words = parser(doc)
-        return words
+    words = parser(expandedpath)
+    return words
 
 
 def _get_parser(doctype):
@@ -19,7 +18,5 @@ def _get_parser(doctype):
         raise ValueError(f'No parser for {doctype} files!')
 
 
-def _pdf_parser(doc):
-    pdf = PdfFileReader(doc)
-    doc_content = [pdf.getPage(i).extractText() for i in range(pdf.numPages)]
-    return '\n\n'.join(doc_content).split(' ')
+def _pdf_parser(docpath):
+    return extract_text(docpath)
